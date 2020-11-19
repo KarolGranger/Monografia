@@ -29,6 +29,13 @@ public class DataSetItem {
 		return  Arrays.toString(items) ;
 	}
 	
+	@Override
+	public DataSetItem clone() {
+		DataSetItem clone = new DataSetItem();
+		clone.setItems(this.getItems());
+		return clone;
+	}
+	
 	
 	
 

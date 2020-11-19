@@ -7,8 +7,6 @@ public class Gini {
 	private ArrayList<Integer> labels;
 	private int depth;
 
-	
-
 	public ArrayList<Integer> getValues_uniques() {
 		return values_uniques;
 	}

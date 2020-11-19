@@ -14,7 +14,6 @@ public class Tree {
 		childrens++;
 		Gini gini = new Gini();
  		Node node = gini.findBestSplit(branch);
- 	
 		if(node.getLeft_branch().size() == 0 || node.getRight_branch().size() == 0) {
 			int classe;
 			if(node.getLeft_branch().size() < node.getRight_branch().size()) {
@@ -31,7 +30,8 @@ public class Tree {
 		if (node.getLeft_branch().size() > 1) {
   			Node tempLeft = buildTree(node.getLeft_branch());
 			node.setLeftSon(tempLeft);
-		}else {
+		}
+		else {
 			int classe = (int) createLeaf(node.getLeft_branch());
 			Node leaf = new Node(true, classe);
 			node.setLeftSon(leaf);

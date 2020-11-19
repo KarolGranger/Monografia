@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 public class File {
@@ -46,14 +45,19 @@ public class File {
 
 	public ArrayList<ArrayList<DataSetItem>> crossValidationSplit(ArrayList<DataSetItem> itemDataSetItems, int folds) {
 		ArrayList<ArrayList<DataSetItem>> itemsDataSetSplit = new ArrayList<ArrayList<DataSetItem>>();
-		ArrayList<DataSetItem> itemsDataSetCopy = itemDataSetItems;
-		ArrayList<DataSetItem> fold = new ArrayList<DataSetItem>();
+		ArrayList<DataSetItem> itemsDataSetCopy = new ArrayList<DataSetItem>();
+		for(DataSetItem item : itemDataSetItems) {
+			itemsDataSetCopy.add(item);
+		}
+
+		ArrayList<DataSetItem> fold;
 		Random random = new Random();
 		int index = 0;
 		int foldSize = itemDataSetItems.size() / folds;
 		for (int i = 0; i < folds; i++) {
+			fold = new ArrayList<DataSetItem>();
 			while (fold.size() < foldSize) {
-				index = random.nextInt(itemDataSetItems.size());
+				index = random.nextInt(itemsDataSetCopy.size());
 				fold.add(itemsDataSetCopy.remove(index));
 			}
 			itemsDataSetSplit.add(fold);

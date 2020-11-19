@@ -10,7 +10,6 @@ public class Main {
 	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		
 		String nameFile = "C:\\Users\\karol\\eclipse-workspace\\Monografia\\src\\model\\banknote.csv"; 
 		int colunas = 5;
 		int nFolds = 4;
