@@ -1,7 +1,8 @@
 package model;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Main {
 
@@ -9,23 +10,34 @@ public class Main {
 	 * @param args
 	 * @throws FileNotFoundException
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
-		String nameFile = "C:\\Users\\karol\\eclipse-workspace\\Monografia\\src\\model\\banknote.csv"; 
-		int colunas = 5;
+	public static void main(String[] args) {
+		// Reading file and setting training data
+		ArrayList<Float[]> itemsDataset = File.fileParser("banknote.csv");
+
+		// Randomizing the samples
+		Collections.shuffle(itemsDataset);
+		// itemsDataset.forEach(x -> System.out.println(Arrays.toString(x)));
+		// Set numbers of folds
 		int nFolds = 4;
-		File file = new File();	
-		//Lendo dataset e setando dados na classe
-		ArrayList<DataSetItem> itemsDataSetFull = new ArrayList<DataSetItem>();
-		itemsDataSetFull = file.fileParser(nameFile, colunas);
+
+		// Slipt dataset in n folds
+		List<List<Float[]>> folds = new ArrayList<>();
+		folds = File.splitFolds(itemsDataset, nFolds);
+
 		
-		//Dividindo dataset in 5 folds
-		ArrayList<ArrayList<DataSetItem>> folds;
-		folds = file.crossValidationSplit(itemsDataSetFull, nFolds);
+		long start = System.currentTimeMillis();
+		DecisionTree dt = null;
+		for (int i = 0; i < folds.size(); i++) {
+			//Create n Decision Trees
+			dt = new DecisionTree();
 			
-		//Treinando modelo com folders -1
-		int mediaAccuracy = 0;
-		mediaAccuracy = file.crossValidation(folds, colunas);
-		System.out.println(mediaAccuracy);
-		
+			// Splitting dataset of train and test
+			dt.crossValidation(folds, i);
+			dt.run();
+		}
+		long finish = System.currentTimeMillis();
+        double seq = ( finish - start ) / 1000.0;
+        System.out.println("Acurácia: " + DecisionTree.getAccurate() / folds.size());
+        System.out.println(seq + " segundos!");  
 	}
 }

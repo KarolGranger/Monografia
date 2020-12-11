@@ -1,16 +1,14 @@
 package model;
 
-import java.util.ArrayList;
-
-import model.TreePrinter.PrintableNode;
+import java.util.List;
 
 /**
  * @author karol
  *
  */
-public class Node implements PrintableNode{
-	private ArrayList<DataSetItem> left_branch;
-	private ArrayList<DataSetItem> right_branch;
+public class Node {
+	private List<Float[]> left_branch;
+	private List<Float[]> right_branch;
 	private Node leftSon;
 	private Node rightSon;
 	private int depth;
@@ -23,9 +21,18 @@ public class Node implements PrintableNode{
 		this.isLeaf = isLeaf;
 		this.classe = classe;
 	}
-	public Node() {
-		
+	
+
+	public Node(List<Float[]> left_branch, List<Float[]> right_branch, float attribute, int column, int depth) {
+		super();
+		this.left_branch = left_branch;
+		this.right_branch = right_branch;
+		this.depth = depth;
+		this.attribute = attribute;
+		this.column = column;
 	}
+
+
 
 	public int getDepth() {
 		return depth;
@@ -51,16 +58,16 @@ public class Node implements PrintableNode{
 	public void setClasse(int classe) {
 		this.classe = classe;
 	}
-	public ArrayList<DataSetItem> getLeft_branch() {
+	public List<Float[]> getLeft_branch() {
  		return left_branch;
 	}
-	public void setLeft_branch(ArrayList<DataSetItem> left_branch) {
+	public void setLeft_branch(List<Float[]> left_branch) {
 		this.left_branch = left_branch;
 	}
-	public ArrayList<DataSetItem> getRight_branch() {
+	public List<Float[]> getRight_branch() {
 		return right_branch;
 	}
-	public void setRight_branch(ArrayList<DataSetItem> right_branch) {
+	public void setRight_branch(List<Float[]> right_branch) {
 		this.right_branch = right_branch;
 	}
 	@Override
