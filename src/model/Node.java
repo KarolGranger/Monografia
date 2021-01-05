@@ -11,7 +11,6 @@ public class Node {
 	private List<Float[]> right_branch;
 	private Node leftSon;
 	private Node rightSon;
-	private int depth;
 	private float attribute;
 	private int column;
 	private boolean isLeaf = false;
@@ -23,23 +22,14 @@ public class Node {
 	}
 	
 
-	public Node(List<Float[]> left_branch, List<Float[]> right_branch, float attribute, int column, int depth) {
+	public Node(List<Float[]> left_branch, List<Float[]> right_branch, float attribute, int column) {
 		super();
 		this.left_branch = left_branch;
 		this.right_branch = right_branch;
-		this.depth = depth;
 		this.attribute = attribute;
 		this.column = column;
 	}
 
-
-
-	public int getDepth() {
-		return depth;
-	}
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
 	public float getAttribute() {
 		return attribute;
 	}

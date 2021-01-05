@@ -6,18 +6,9 @@ import java.util.List;
 public class Gini {
 	private static List<Integer> values_uniques;
 	private List<Integer> labels;
-	private int depth;
-
-	public List<Integer> getValues_uniques() {
-		return values_uniques;
-	}
-
-	public List<Integer> getLabels() {
-		return labels;
-	}
-
-	public Node findBestSplit(List<Float[]> itemsDataSet) {
-		depth++;
+	
+	
+	public Node giniIndex(List<Float[]> itemsDataSet) {
 		int column = 0;
 		double mediaGini = 0, bestGini = 1;
 		float bestAttribute = 0;
@@ -37,8 +28,8 @@ public class Gini {
 					}
 				}
 				// Media by node
-				mediaGini = (giniIndex(leftBranch) * leftBranch.size()) / (leftBranch.size())
-						+ (giniIndex(rightBranch) * rightBranch.size() / rightBranch.size());
+				mediaGini = (calculateProportions(leftBranch) * leftBranch.size()) / (leftBranch.size())
+						+ (calculateProportions(rightBranch) * rightBranch.size() / rightBranch.size());
 				if (mediaGini < bestGini) {
 					bestGini = mediaGini;
 					bestLeftBranch = leftBranch;
@@ -48,11 +39,11 @@ public class Gini {
 				}
 			}
 		}
-		Node node = new Node(bestLeftBranch, bestRightBranch, bestAttribute, column, depth);
+		Node node = new Node(bestLeftBranch, bestRightBranch, bestAttribute, column);
 		return node;
 	}
 
-	public double giniIndex(List<Float[]> branch) {
+	public double calculateProportions(List<Float[]> branch) {
 		int proporcoes[] = { 0, 0 };
 		double proporcao = 0, total = 1;
 		// Avoiding division by 0
@@ -74,4 +65,13 @@ public class Gini {
 			return total;
 		}
 	}
+	
+	public List<Integer> getValues_uniques() {
+		return values_uniques;
+	}
+
+	public List<Integer> getLabels() {
+		return labels;
+	}
+	
 }
